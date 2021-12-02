@@ -3,6 +3,8 @@ const paper = document.getElementById('paper');
 const scissor = document.getElementById('scissors');
 const playerSign = document.getElementById('player-sign');
 const computerSign = document.getElementById('computer-sign');
+const playerScore = document.getElementById('player-score');
+const computerScore = document.getElementById('computer-score');
 const flexContainer = document.getElementsByClassName('flex-container');
 const message = document.querySelector('.message');
 const historyUpdate = document.querySelector('.history__update');
@@ -10,21 +12,34 @@ const historyUpdate = document.querySelector('.history__update');
 var playerPoints = 0;
 var computerPoints = 0;
 
-console.log("running...");
-console.log(historyUpdate);
-// -----------------------------------------------------------------------
+// Returns => Winner of the game
+gameWinner = () => {
+    if (playerPoints === 5 || computerPoints === 5) {
+        if (playerPoints > computerPoints) {
+            console.log('player wins');
+        } else if (playerPoints < computerPoints) {
+            console.log('computer wins');
+        } else {
+            console.log("it's tie");
+        }
+    }
+}
 
-
+// Returns => computer's sign
 computerPlay = () => {
+    // Generate random number between 0 and 2 and choses the computer's sign
     const computerOptions = ['rock', 'paper', 'scissors']
     const choiceNumber = Math.floor(Math.random() * 3);
+
+    // Set computer sign
     const computerSelection = computerOptions[choiceNumber];
     computerSign.className = "";
     computerSign.className = `fas fa-hand-${computerSelection}`;
-    console.log(`computer - ${computerSelection}`);
+
     return computerSelection;
 }
 
+// Returns => message
 playRound = (playerSelection, computerSelection) => {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
@@ -58,45 +73,54 @@ playRound = (playerSelection, computerSelection) => {
     }
 }
 
-
-gameWinner = () => {
-    console.log(`player points: ${playerPoints}`);
-    console.log(`computer points: ${computerPoints}`);
-    if (playerPoints === 5 || computerPoints === 5) {
-        if (playerPoints > computerPoints) {
-            console.log('player wins');
-        } else if (playerPoints < computerPoints) {
-            console.log('computer wins');
-        } else {
-            console.log("it's tie");
-        }
-    }
+// Updates the score
+updateScore = () => {
+    playerScore.innerHTML = playerPoints;
+    computerScore.innerHTML = computerPoints;
 }
 
-playGame = (sign) => {
-    playerSign.className = "";
-    playerSign.className = `fas fa-hand-${sign}`;
-    console.log(`Player - ${sign}`);
-    let roundResult = playRound(sign, computerPlay());
-    console.log(roundResult);
+// add history div
+addHistoryDiv = () => {
+    // Create a div with class history and prepend it to the historyUpdate div
     let div = document.createElement("div");
     div.className = "history";
     div.innerHTML = message.innerHTML;
     historyUpdate.prepend(div);
-    console.log(historyUpdate);
+}
+
+// Update the history
+updateHistory = () => {
+    addHistoryDiv(); // add history div
+    let historyCount = historyUpdate.childElementCount;
+    if (historyCount >= 5) {
+        historyUpdate.removeChild(historyUpdate.lastChild);
+    }
+}
+
+playGame = (sign) => {
+    // Change the sign of player
+    playerSign.className = "";
+    playerSign.className = `fas fa-hand-${sign}`;
+    let roundResult = playRound(sign, computerPlay());
+
+    updateScore();   // Update the score
+    updateHistory(); // Update the history
+
+    // Set message => roundResult
     message.innerHTML = roundResult;
+
+    // Check for winner
     gameWinner();
 }
 
 game = () => {
     flexContainer[0].addEventListener('click', (e) => {
-        console.log(e.target.id);
         const sign = e.target.id;
-        playGame(sign);
+        if (sign) playGame(sign);
     });
 }
 
+game();
+
 // game => playGame(sign) => playRound(playerSelection, computerSelection) 
 // => gameWinner();
-
-game();
