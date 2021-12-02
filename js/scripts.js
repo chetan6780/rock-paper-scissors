@@ -10,6 +10,8 @@ const message = document.querySelector('.message');
 const historyUpdate = document.querySelector('.history__update');
 const modal = document.getElementById("restart-modal");
 const restart = document.getElementById('restart');
+const startModal = document.getElementById('start-modal');
+const start = document.getElementById('start');
 const modalText = document.getElementById('modal-text');
 
 let playerPoints = 0;
@@ -129,6 +131,7 @@ playGame = (sign) => {
 }
 
 game = () => {
+    start.onclick = () => startModal.style.display = "none";
     flexContainer[0].addEventListener('click', (e) => {
         const sign = e.target.id;
         if (sign) playGame(sign);

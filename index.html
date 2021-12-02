@@ -18,7 +18,8 @@
             <h1>Rock Paper Scissors</h1>
         </div>
     </header>
-    <div hidden>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div hidden>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a
+            href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     <main>
         <h2>Score</h2>
         <div class="scorecard">
@@ -41,12 +42,30 @@
         </div>
     </main>
 
-    <!-- modal ----------------------------------------->
+    <!-- restart modal ----------------------------------------->
     <div id="restart-modal" class="modal">
         <div class="modal-content">
             <h1>Game Over</h1>
             <p id="modal-text"></p>
             <button id="restart">Restart Game</button>
+        </div>
+    </div>
+    <!-- modal --------------------------------------- -->
+
+    <!-- start modal ----------------------------------------->
+    <div id="start-modal" class="modal">
+        <div class="modal-content">
+            <h1>Game Rules</h1>
+            <p id="modal-text">
+            <ul style="padding: 0 0 0 28px;">
+                <li style="text-align:left"> Whoever get 5 points first, wins the game.</li>
+                <li style="text-align:left"> Rock beats scissors.</li>
+                <li style="text-align:left"> Paper beats rock.</li>
+                <li style="text-align:left"> Scissors beats paper.</li>
+                <li style="text-align:left"> Have fun playing! 😄🤟</li>
+            </ul>
+            </p>
+            <button id="start">Start Game</button>
         </div>
     </div>
     <!-- modal ----------------------------------------->
