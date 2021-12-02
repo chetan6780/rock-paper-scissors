@@ -8,19 +8,21 @@ const computerScore = document.getElementById('computer-score');
 const flexContainer = document.getElementsByClassName('flex-container');
 const message = document.querySelector('.message');
 const historyUpdate = document.querySelector('.history__update');
+const modal = document.getElementById("restart-modal");
+const restart = document.getElementById('restart');
+const modalText = document.getElementById('modal-text');
 
-var playerPoints = 0;
-var computerPoints = 0;
+let playerPoints = 0;
+let computerPoints = 0;
 
-// Returns => Winner of the game
+// Set the Winner of the game
 gameWinner = () => {
     if (playerPoints === 5 || computerPoints === 5) {
+        modal.style.display = "block";
         if (playerPoints > computerPoints) {
-            console.log('player wins');
-        } else if (playerPoints < computerPoints) {
-            console.log('computer wins');
+            modalText.innerHTML = "🤩 You Won!";
         } else {
-            console.log("it's tie");
+            modalText.innerHTML = "😕 You Lost!";
         }
     }
 }
@@ -49,26 +51,26 @@ playRound = (playerSelection, computerSelection) => {
     } else if (playerSelection === 'rock') {
         if (computerSelection === 'paper') {
             computerPoints++;
-            return "<b><pre>You lose! </pre></b> Paper beats rock.";
+            return "<b><pre>You lose! </pre></b>😕 Paper beats rock.";
         } else {
             playerPoints++;
-            return "<b><pre>You win! </pre></b> Rock beats scissors.";
+            return "<b><pre>You win! </pre></b>🤩 Rock beats scissors.";
         }
     } else if (playerSelection === 'paper') {
         if (computerSelection === 'scissors') {
             computerPoints++;
-            return "<b><pre>You lose! </pre></b> Scissors beats paper.";
+            return "<b><pre>You lose! </pre></b>😕 Scissors beats paper.";
         } else {
             playerPoints++;
-            return "<b><pre>You win! </pre></b> Paper beats rock.";
+            return "<b><pre>You win! </pre></b>🤩 Paper beats rock.";
         }
     } else if (playerSelection === 'scissors') {
         if (computerSelection === 'rock') {
             computerPoints++;
-            return "<b><pre>You lose! </pre></b> Rock beats scissors.";
+            return "<b><pre>You lose! </pre></b>😕 Rock beats scissors.";
         } else {
             playerPoints++;
-            return "<b><pre>You win! </pre></b> Scissors beats paper.";
+            return "<b><pre>You win! </pre></b>🤩 Scissors beats paper.";
         }
     }
 }
@@ -97,6 +99,19 @@ updateHistory = () => {
     }
 }
 
+// Restart the game
+restartGame = () => {
+    playerPoints = 0;
+    computerPoints = 0;
+    updateScore();
+    while (historyUpdate.hasChildNodes()) {
+        historyUpdate.removeChild(historyUpdate.lastChild);
+    }
+    message.innerHTML = "Get <b><pre> 5 </pre></b> points to win the game";
+    modal.style.display = "none";
+}
+
+// Play the game
 playGame = (sign) => {
     // Change the sign of player
     playerSign.className = "";
@@ -118,9 +133,12 @@ game = () => {
         const sign = e.target.id;
         if (sign) playGame(sign);
     });
+    restart.onclick = () => {
+        restartGame();
+    }
 }
 
 game();
 
 // game => playGame(sign) => playRound(playerSelection, computerSelection) 
-// => gameWinner();
+// => gameWinner() => restartGame();
