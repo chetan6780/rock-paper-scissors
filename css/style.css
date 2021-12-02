@@ -99,15 +99,14 @@ footer {
     .fas {
         font-size: 55px;
     }
-    /* .history__update {
+    .history__update {
         display: block;
-    } */
+    }
     .history {
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-        /* background-color: rgb(221, 0, 255); */
         height: 30px;
     }
     h1 {
